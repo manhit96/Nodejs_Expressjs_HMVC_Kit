@@ -1,0 +1,35 @@
+{
+  "name": "expressjs_starter_kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node index.js",
+    "debug": "DEBUG=expressjs-starter-kit:* npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imManhIT/Nodejs_Expressjs_Base_Kit.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "starter",
+    "kit"
+  ],
+  "author": "ManhDV96",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imManhIT/Nodejs_Expressjs_Base_Kit/issues"
+  },
+  "homepage": "https://github.com/imManhIT/Nodejs_Expressjs_Base_Kit#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1"
+  }
+}
