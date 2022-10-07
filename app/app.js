@@ -29,4 +29,9 @@ for (const module of modules) {
   app.use(routes);
 }
 
+// not found page/url
+app.use((req, res) => {
+  res.sendStatus(404);
+})
+
 module.exports = app;
