@@ -28,10 +28,12 @@
   "dependencies": {
     "body-parser": "^1.20.0",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "glob": "^8.0.3",
+    "helmet": "^6.0.0",
     "morgan": "~1.9.1"
   },
   "devDependencies": {

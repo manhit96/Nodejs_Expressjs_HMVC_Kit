@@ -4,13 +4,17 @@ const path = require('path');
 const glob = require('glob');
 
 const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
+const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
 
 const app = express();
 
 app.use(logger('combined'));
+app.use(helmet());
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
