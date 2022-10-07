@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node index.js",
-    "debug": "DEBUG=expressjs-starter-kit:* npm start",
+    "watch": "nodemon index.js",
+    "debug": "DEBUG=expressjs:* npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +31,10 @@
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
+    "glob": "^8.0.3",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

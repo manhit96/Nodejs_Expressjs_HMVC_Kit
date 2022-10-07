@@ -5,15 +5,15 @@
  */
 
 require('dotenv').config();
+global.debug = require('debug')('expressjs:server');
 
-const app = require('./src/app');
-const debug = require('debug')('expressjs-starter-kit:server');
+const app = require('./app/app');
 const http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(Configurations.PORT || '3000');
 app.set('port', port);
 
 /**
@@ -87,5 +87,7 @@ function onListening() {
       ? 'pipe ' + addr
       : 'port ' + addr.port;
 
-  debug('Listening on ' + bind);
+  debug('Configurations:\n%O', Configurations);
+  debug('listening on ' + bind);
+  debug('Application is up and running!');
 }

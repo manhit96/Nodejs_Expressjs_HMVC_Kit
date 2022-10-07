@@ -1,0 +1,28 @@
+{
+  "development": {
+    "DOMAIN": "localhost",
+    "PORT": 3000,
+    "HTTPS": false,
+    "DATABASE": {
+      "TYPE": "mariadb",
+      "HOST": "localhost",
+      "PORT": 3306,
+      "NAME": "express_kit",
+      "USERNAME": "root",
+      "PASSWORD": "Pw0rd2022"
+    }
+  },
+  "production": {
+    "DOMAIN": "localhost",
+    "PORT": 3000,
+    "HTTPS": true,
+    "DATABASE": {
+      "TYPE": "mariadb",
+      "HOST": "localhost",
+      "PORT": 3306,
+      "NAME": "express_kit",
+      "USERNAME": "root",
+      "PASSWORD": "Pw0rd2022"
+    }
+  }
+}
