@@ -6,7 +6,11 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "debug": "DEBUG=expressjs:* npm run watch",
+    "debug": "DEBUG=* npm run watch",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint --cache .",
+    "lint:fix": "eslint --cache --fix .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,6 +41,11 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1"
   }
 }
