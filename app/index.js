@@ -4,17 +4,6 @@ const glob = require("glob");
 
 const { DATABASE } = require("../config")();
 const dataSource = require("./shared/data-source");
-dataSource
-  .authenticate()
-  .then(async () => {
-    debug("Database connection has been established successfully!");
-    if (DATABASE["SYNC"]) {
-      await dataSource.sync();
-    }
-  })
-  .catch((error) => {
-    console.error("> Unable to connect to the database: %O", error);
-  });
 
 const express = require("express");
 const logger = require("morgan");
@@ -23,8 +12,51 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
-const app = express();
+// load app modules
+const modules = [];
+glob.sync(__dirname + "/modules/*").forEach((file) => {
+  const module = require(file);
+  modules.push(module);
+});
+// sort app modules by load priority
+modules.sort((a, b) => (a.priority > b.priority ? 1 : -1));
 
+// register app modules
+const registerModules = () => {
+  for (const module of modules) {
+    module.register(app);
+  }
+};
+
+// boot app modules
+const bootModules = async () => {
+  for (const module of modules) {
+    await module.boot(app);
+  }
+};
+
+const onDataSourceEstablished = async () => {
+  if (DATABASE["SYNC"]) {
+    debug("Start database synchronization...");
+    await dataSource.sync();
+  }
+
+  // boot app module after datasource established successfully
+  await bootModules();
+};
+
+dataSource
+  .authenticate()
+  .then(async () => {
+    debug("Database connection has been established successfully!");
+    await onDataSourceEstablished();
+  })
+  .catch((err) => {
+    console.error(err);
+    throw Error("Unable to connect to the database!");
+  });
+
+const app = express();
 app.use(logger("combined"));
 app.use(helmet());
 app.use(cors());
@@ -33,25 +65,10 @@ app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(express.static(path.resolve("public")));
 
-// import modules
-const modules = [];
-glob.sync(__dirname + "/modules/*").forEach((file) => {
-  const module = require(file);
-  debug("Import module: %O", { name: module.name, path: file });
+// must be register app modules before "page not found" middleware
+registerModules();
 
-  const isExist = modules.find((item) => item.name === module.name);
-  if (isExist) throw Error(`Duplicate module "${module.name}"`);
-
-  modules.push(module);
-});
-
-for (const module of modules) {
-  app.use(module.routes);
-}
-
-// not found page/url
-app.use((req, res) => {
-  res.sendStatus(404);
-});
+// page not found
+app.use((req, res) => res.sendStatus(404));
 
 module.exports = app;

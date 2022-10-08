@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+const { Router } = require("express");
+const router = Router();
 
 router.get("/", function (req, res) {
-  res.render("index", { title: "Express" });
+  res.send("Hello World!");
 });
 
 router.get("/core", function (req, res) {
