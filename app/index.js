@@ -1,6 +1,20 @@
-const debug = require("debug")("[App]");
+const debug = require("debug")("app:");
 const path = require("path");
 const glob = require("glob");
+
+const { DATABASE } = require("../config")();
+const dataSource = require("./shared/data-source");
+dataSource
+  .authenticate()
+  .then(async () => {
+    debug("Database connection has been established successfully!");
+    if (DATABASE["SYNC"]) {
+      await dataSource.sync();
+    }
+  })
+  .catch((error) => {
+    console.error("> Unable to connect to the database: %O", error);
+  });
 
 const express = require("express");
 const logger = require("morgan");

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "debug": "DEBUG=* npm run watch",
+    "debug": "DEBUG=http:*,express:*,sequelize:*,main:*,app:* npm run watch",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "lint:check": "eslint --cache .",
@@ -38,7 +38,9 @@
     "express": "~4.16.1",
     "glob": "^8.0.3",
     "helmet": "^6.0.0",
-    "morgan": "~1.9.1"
+    "mariadb": "^3.0.1",
+    "morgan": "~1.9.1",
+    "sequelize": "^6.24.0"
   },
   "devDependencies": {
     "eslint": "^8.24.0",
